@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <title>Register</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 10px;
+        }
+      
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container mt-5">
+            <div class="row justify-content-center align-items-center">
+                <!-- Left Side: Registration Form -->
+                <div class="col-md-6">
+                    <div class="card shadow p-4 mb-5 bg-white rounded">
+                        <div class="card-header text-center">
+                            <h3 class=" fw-bold">Sign Up</h3>
+                            <p class="fs-6 text-muted">Your cart is waiting for you, let’s find something amazing!</p>
+                            
+                            <!-- Success Message -->
+                            <th:block th:if="${session.succMsg}">
+                                <p class="text-success fw-bold">[[${session.succMsg}]]</p>
+                                <th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+                            </th:block>
+
+                            <!-- Error Message -->
+                            <th:block th:if="${session.errorMsg}">
+                                <p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+                                <th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+                            </th:block>
+                        </div>
+
+                        <div class="card-body">
+                            <form action="/saveUser" enctype="multipart/form-data" id="userRegister" novalidate method="post">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Full Name</label>
+                                        <input required class="form-control" name="name" type="text">
+                                        <div class="invalid-feedback">Full Name is required</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Mobile Number</label>
+                                        <input required class="form-control" name="mobileNumber" type="number">
+                                        <div class="invalid-feedback">Mobile Number is required</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <label class="form-label">Email</label>
+                                    <input required class="form-control" name="email" type="email">
+                                    <div class="invalid-feedback">Valid Email is required</div>
+                                </div>
+
+                                <div class="row g-3 mt-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Address</label>
+                                        <input required class="form-control" name="address" type="text">
+                                        <div class="invalid-feedback">Address is required</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">City</label>
+                                        <input required class="form-control" name="city" type="text">
+                                        <div class="invalid-feedback">City is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">State</label>
+                                        <input required class="form-control" name="state" type="text">
+                                        <div class="invalid-feedback">State is required</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Pincode</label>
+                                        <input required class="form-control" name="pincode" type="number">
+                                        <div class="invalid-feedback">Pincode is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Password</label>
+                                        <input required class="form-control" name="password" type="password" id="pass">
+                                        <div class="invalid-feedback">Password is required</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Confirm Password</label>
+                                        <input required class="form-control" name="confirmpassword" type="password">
+                                        <div class="invalid-feedback">Confirm Password is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label class="form-label">Profile Image</label>
+                                    <input class="form-control" name="img" type="file">
+                                </div>
+
+                                <div class="mt-4">
+                                <button type="submit" class="btn btn-primary col-12">Register</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-footer text-center">
+                            Already Have An Account? 
+                            <a href="/signin" class="text-decoration-none fw-bold">Login</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Image -->
+                <div class="col-md-6 d-none d-md-block text-center">
+                    <img src="/img/ecomreg.jpg" class="img-fluid rounded" alt="Registration Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Basic Form Validation -->
+    <script>
+        (function () {
+            "use strict";
+            var forms = document.querySelectorAll("form");
+            
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener("submit", function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                }, false);
+            });
+        })();
+    </script>
+</body>
+</html>
