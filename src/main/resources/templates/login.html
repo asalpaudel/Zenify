@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 10px;
+        }
+        .btn-custom {
+            background-color: #f2743f;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #d8602e;
+        }
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+	<section>
+        <div class="container mt-5">
+            <div class="row justify-content-center align-items-center">
+                <!-- Left Side: Image -->
+                <div class="col-md-6 d-none d-md-block text-center">
+                    <img src="/img/ecomlog.jpg"
+                         class="img-fluid rounded shadow" 
+                         alt="Login Image">
+                </div>
+
+                <!-- Right Side: Login Form -->
+                <div class="col-md-5">
+                    <div class="card shadow p-4 mb-5 bg-white rounded">
+                        <div class="card-header text-center">
+							<h3 class=" fw-bold">Login</h3>
+							<p class="fs-6 text-muted">Good to see you again! Your next great find is just a click away.</p>
+
+							<!-- Error Message -->
+							<div th:if="${param.error}" class="alert alert-danger text-center">
+								<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
+									[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+								</th:block>
+							</div>
+
+							<!-- Logout Message -->
+							<div th:if="${param.logout}" class="alert alert-success">
+								Logout Successful
+							</div>
+						</div>
+
+						<div class="card-body">
+							<form action="/login" method="post" novalidate>
+								<div class="mb-3">
+									<label class="form-label">Email</label> 
+									<input required class="form-control" name="username" type="email">
+									<div class="invalid-feedback">Please enter a valid email</div>
+								</div>
+
+								<div class="mb-3">
+									<label class="form-label">Password</label> 
+									<input required class="form-control" name="password" type="password">
+									<div class="invalid-feedback">Password is required</div>
+								</div>
+
+								<button type="submit" class="btn btn-primary text-white col-12">Login</button>
+							</form>
+						</div>
+
+						<div class="card-footer text-center">
+							<a href="/forgot-password" class="text-decoration-none text-danger">Forgot Password?</a><br>
+							Don't have an account? 
+                            <a href="/register" class="text-decoration-none fw-bold text-primary">Create one</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Basic Form Validation -->
+    <script>
+        (function () {
+            "use strict";
+            var forms = document.querySelectorAll("form");
+            
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener("submit", function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                }, false);
+            });
+        })();
+    </script>
+</body>
+</html>
