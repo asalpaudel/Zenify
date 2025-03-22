@@ -33,7 +33,7 @@ Scroll to the Setup section to learn about installing the system to your IDE
 ### Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/asalpaudel/Zenify
+   git clone https://github.com/asalpaudel/Zenify.git
    cd Zenify
    ```
 2. Configure the database in `application.properties`:
